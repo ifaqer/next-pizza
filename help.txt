@@ -1,4 +1,10 @@
 ――――――――――――――――――――――――――――――
+Хуки Next.JS:
+const {} = useRouter()
+const {} = usePathname()
+const {} = useSearchParams()
+const {} = useParams()
+――――――――――――――――――――――――――――――
 - Что мы будем использовать?\
 • shadcn
 • typescript, React
