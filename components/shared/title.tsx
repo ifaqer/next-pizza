@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import { cn } from '@/lib/utils';
 import React from 'react';
 
 type TitleSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
@@ -30,7 +30,7 @@ export const Title: React.FC<Props> = ({ text, size = 'sm', className }) => {
 
   return React.createElement(
     mapTagBySize[size],
-    { className: clsx(mapClassNameBySize[size], className) },
+    { className: cn(mapClassNameBySize[size], className) },
     text,
   );
 };
