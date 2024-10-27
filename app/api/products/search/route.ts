@@ -14,3 +14,9 @@ export async function GET(req: NextRequest) {
   });
   return NextResponse.json(products);
 }
+
+// contains - содержит
+// query - запрашивать
+// mode - режим
+// insensitive - не чувствителен к регистру
+// take - верни столько продуктов

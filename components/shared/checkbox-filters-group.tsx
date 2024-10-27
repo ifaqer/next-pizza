@@ -1,31 +1,48 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 'use client';
 import React from 'react';
 import { FilterChecboxProps, FilterCheckbox } from './filter-checkbox';
-import { Input } from '../ui';
+import { Input, Skeleton } from '../ui';
 
 type Item = FilterChecboxProps;
 
 interface Props {
   title: string;
   items: Item[];
+  name: string;
   defaultItems: Item[];
   limit?: number;
+  loading?: boolean;
   searchInputPlaceholder?: string;
-  onChange?: (values: string[]) => void;
+  onClickCheckBox?: (id: string) => void;
   defaultValue?: string[];
+  selectedIds?: Set<string>;
   className?: string;
 }
 
 export const CheckboxFiltersGroup: React.FC<Props> = ({
   title,
   items,
+  name,
   defaultItems,
   limit = 5,
   searchInputPlaceholder = 'Поиск...',
   className,
-  onChange,
-  defaultValue,
+  loading,
+  onClickCheckBox,
+  selectedIds,
 }) => {
+  if (loading) {
+    return (
+      <div className={className}>
+        <p className="font-bold mb-3">{title}</p>
+        {...Array(limit)
+          .fill(0)
+          .map((_, index) => <Skeleton key={index} className="h-6 mb-4 rounded-[8px]" />)}
+      </div>
+    );
+  }
+
   const [showAll, setShowAll] = React.useState(false);
   const [searchValue, setSearchValue] = React.useState('');
   const list = showAll
@@ -53,9 +70,10 @@ export const CheckboxFiltersGroup: React.FC<Props> = ({
             key={index}
             text={item.text}
             value={item.value}
+            name={name}
             endAdornment={item.endAdornment}
-            checked={false}
-            onCheckedChange={(ids) => console.log(ids)}
+            checked={selectedIds?.has(item.value)}
+            onCheckedChange={() => onClickCheckBox?.(item.value)}
           />
         ))}
       </div>

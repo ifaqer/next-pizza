@@ -170,7 +170,7 @@ async function main() {
   }
 }
 
-main() // Вернет промис, поэтому так!
+main()
   .then(async () => {
     await prisma.$disconnect();
   })
