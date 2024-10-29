@@ -6,7 +6,7 @@ import { Input, RangeSlider } from '../ui';
 import { useFilterIngredients } from '@/hooks/useFilterIngredients';
 import { useSet } from 'react-use';
 import qs from 'qs';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 interface Props {
   className?: string;
@@ -18,11 +18,21 @@ interface PriceProps {
 }
 
 export const Filters: React.FC<Props> = ({ className }) => {
+  const searchParams = useSearchParams();
   const { push } = useRouter();
-  const [sizes, { toggle: toggleSizes }] = useSet(new Set<string>([]));
-  const [pizzaTypes, { toggle: togglePizzaTypes }] = useSet(new Set<string>([]));
+  const [sizes, { toggle: toggleSizes }] = useSet(
+    new Set<string>(searchParams.get('sizes') ? searchParams.get('sizes')?.split(',') : []),
+  );
+  const [pizzaTypes, { toggle: togglePizzaTypes }] = useSet(
+    new Set<string>(
+      searchParams.get('pizzaTypes') ? searchParams.get('pizzaTypes')?.split(',') : [],
+    ),
+  );
   const { ingredients, loading, onAddId, selectedIngredients } = useFilterIngredients();
-  const [prices, setPrice] = React.useState<PriceProps>({});
+  const [prices, setPrice] = React.useState<PriceProps>({
+    priceFrom: Number(searchParams.get('priceFrom')) || undefined,
+    priceTo: Number(searchParams.get('priceTo')) || undefined,
+  });
   const items = ingredients.map((item) => ({ text: item.name, value: String(item.id) }));
   const updatePrice = (name: keyof PriceProps, value: number) => {
     setPrice({
@@ -44,6 +54,7 @@ export const Filters: React.FC<Props> = ({ className }) => {
     push(`?${query}`, {
       scroll: false,
     });
+    console.log(query);
   }, [prices, pizzaTypes, sizes, selectedIngredients, push]);
 
   return (
@@ -82,7 +93,7 @@ export const Filters: React.FC<Props> = ({ className }) => {
             placeholder="0"
             min={0}
             max={1000}
-            defaultValue={0}
+            defaultValue={prices.priceFrom}
             value={String(prices.priceFrom)}
             onChange={(e) => updatePrice('priceFrom', Number(e.target.value))}
           />
@@ -91,7 +102,7 @@ export const Filters: React.FC<Props> = ({ className }) => {
             placeholder="1000"
             min={100}
             max={1000}
-            defaultValue={500}
+            defaultValue={prices.priceTo}
             value={String(prices.priceTo)}
             onChange={(e) => updatePrice('priceTo', Number(e.target.value))}
           />
