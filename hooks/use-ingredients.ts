@@ -1,23 +1,10 @@
 import { Api } from '@/services/api-client';
 import { Ingredient } from '@prisma/client';
-import { useSearchParams } from 'next/navigation';
 import React from 'react';
-import { useSet } from 'react-use';
 
-interface ReturnProps {
-  ingredients: Ingredient[];
-  loading: boolean;
-  selectedIngredients: Set<string>;
-  onAddId: (id: string) => void;
-}
-
-export const useFilterIngredients = (): ReturnProps => {
-  const searchParams = useSearchParams();
+export const useIngredients = () => {
   const [ingredients, setIngredients] = React.useState<Ingredient[]>([]);
   const [loading, setLoading] = React.useState(false);
-  const [selectedIds, { toggle }] = useSet(
-    new Set<string>(searchParams.get('ingredients')?.split(',') || []),
-  );
   React.useEffect(() => {
     async function fetchIngredient() {
       try {
@@ -32,6 +19,5 @@ export const useFilterIngredients = (): ReturnProps => {
     }
     fetchIngredient();
   }, []);
-
-  return { ingredients, loading, onAddId: toggle, selectedIngredients: selectedIds };
+  return { loading, ingredients };
 };
