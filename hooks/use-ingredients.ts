@@ -1,3 +1,5 @@
+'use client';
+
 import { Api } from '@/services/api-client';
 import { Ingredient } from '@prisma/client';
 import React from 'react';
