@@ -1,4 +1,5 @@
-import { Container, GroupVariants, ProductImage, Title } from '@/components/shared';
+/* eslint-disable @next/next/no-img-element */
+import { Container, GroupVariants, Title } from '@/components/shared';
 import { prisma } from '@/prisma/prisma-client';
 import { notFound } from 'next/navigation';
 
@@ -14,7 +15,7 @@ export default async function ProductPage({ params: { id } }: { params: { id: st
   return (
     <Container className="flex flex-col my-10">
       <div className="flex flex-1 justify-center">
-        <ProductImage size={22} imageUrl={product.imageUrl} />
+        <img height={22} src={product.imageUrl} />
         <div className="w-[490px] bg-[#f7f6f5] p-7">
           <Title text={product.name} size="md" className="font-extrabold mb-1"></Title>
           <p className="text-gray-400">Описание продукта один-два...</p>
