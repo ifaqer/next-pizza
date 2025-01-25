@@ -1,6 +1,6 @@
 # ✅ NextPizza / FullStack интернет-магазин
 ❌ PS: находится в разработке!!! ❌
-Ссылка на макет дизайн сайта: <a href="https://www.figma.com/design/cYz4fOSK74EJoqHxoNr1hT/Next-Pizza?node-id=0-1&p=f">FIGMA</a>
+<p>Ссылка на макет дизайн сайта: <a href="https://www.figma.com/design/cYz4fOSK74EJoqHxoNr1hT/Next-Pizza?node-id=0-1&p=f">FIGMA</a></p>
 ### 👉 Фото соответствуют реализованному функционалу!
 Какие технологии применяются:
 1. NextJS (Parallel Routes, Group Routes, Server Actions, API)
@@ -16,7 +16,6 @@
 11. react-insta-stories
 12. lucide-react
 13. Resend
-❌ PS: находится в разработке!!! ❌
 <img src="1.png">
 <img src="2.png">
 <img src="3.png">
